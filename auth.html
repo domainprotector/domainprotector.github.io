@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Domain Protect</title>
+  <title>Domain Protect - Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f1f5f9;
+      background-color: #f9fafb;
       color: #1a1a1a;
       display: flex;
       justify-content: center;
@@ -17,102 +17,86 @@
       margin: 0;
     }
 
-    .login-container {
+    .auth-container {
       background-color: white;
       border-radius: 10px;
       padding: 2rem;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 300px;
+      width: 400px;
       text-align: center;
     }
 
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
     }
 
     input {
       width: 100%;
-      padding: 0.8rem;
-      margin-bottom: 1rem;
-      border: 1px solid #e2e8f0;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
-      color: #1a1a1a;
     }
 
-    button {
-      width: 100%;
-      padding: 1rem;
+    .button {
+      padding: 1rem 2rem;
       background-color: #2563eb;
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      display: inline-block;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
+    .button:hover {
       background-color: #1d4ed8;
     }
 
-    .notification {
-      margin-top: 1rem;
-      color: red;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .demo-message {
-      margin-top: 1rem;
+    .login-message {
       font-size: 1rem;
-      color: #475569;
+      color: #4caf50;
+      margin-top: 1.5rem;
     }
 
-    .demo-message a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-
-    .demo-message a:hover {
-      text-decoration: underline;
+    .error-message {
+      font-size: 1rem;
+      color: red;
+      margin-top: 1.5rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-container">
-    <h2>Domain Protect Login</h2>
-    <form id="loginForm" onsubmit="return handleLogin(event)">
-      <input type="email" id="username" name="username" value="demo.auth@domain.protect" disabled />
-      <input type="password" id="password" name="password" value="demo" disabled />
-      <button type="submit">Login</button>
-    </form>
-
-    <!-- Hidden notification that will be shown after submitting -->
-    <div class="notification" id="notification" style="display: none;">
-      Sorry, we've not set up user accounts yet.
+  <div class="auth-container" id="auth-container">
+    <!-- Login Form -->
+    <div id="login-form">
+      <h1>Domain Protect Login</h1>
+      <form id="login">
+        <input type="text" id="username" placeholder="Username" value="demo.auth@domain.protect" disabled />
+        <input type="password" id="password" placeholder="Password" value="1234" disabled />
+        <button type="button" class="button" onclick="login()">Login</button>
+      </form>
+      <p class="login-message">Click Login to try a demo account</p>
+      <p class="error-message" id="error-message" style="display: none;">Sorry, we've not setup user accounts yet.</p>
     </div>
 
-    <!-- Demo message below the login button -->
-    <div class="demo-message">
-      <p>Click <strong>Login</strong> to try a demo account.</p>
+    <!-- Success Message -->
+    <div id="login-success" style="display: none;">
+      <h2>Demo Login Complete</h2>
+      <p>Welcome! You've successfully logged in to the demo account. Please proceed with exploring the features.</p>
+      <a href="dash.html" class="button">Go to Dashboard</a>
     </div>
   </div>
 
   <script>
-    function handleLogin(event) {
-      event.preventDefault(); // Prevent the default form submission
-
-      // Display the notification that user accounts are not implemented yet
-      document.getElementById('notification').style.display = 'block';
-
-      // Close the current (small) window
-      window.close();
-
-      // Redirect the main window to afterlogindemonetwork.html
-      window.opener.location.href = "afterlogindemonetwork.html";
+    function login() {
+      // Hide the login form and show the success message
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('login-success').style.display = 'block';
     }
   </script>
 
