@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Domain Protect Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .hidden {
+      display: none;
+    }
+    .domain-placeholder {
+      text-align: center;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 font-sans">
   <div class="max-w-7xl mx-auto p-6">
@@ -18,50 +26,27 @@
         <h2 class="text-xl font-semibold text-gray-700">🔍 Domain Overview</h2>
         <button onclick="addDomain()" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">+ Add Domain</button>
       </div>
-      <table class="w-full bg-white rounded shadow overflow-hidden">
-        <thead class="bg-gray-200 text-left">
-          <tr>
-            <th class="p-3">Domain Name</th>
-            <th class="p-3">Plan</th>
-            <th class="p-3">WHOIS Privacy</th>
-            <th class="p-3">Email Forwarding</th>
-            <th class="p-3">Status</th>
-            <th class="p-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="domainTable">
-          <tr class="border-t">
-            <td class="p-3">example.com</td>
-            <td class="p-3">Basic</td>
-            <td class="p-3">Enabled</td>
-            <td class="p-3">Disabled</td>
-            <td class="p-3 text-green-600">Active</td>
-            <td class="p-3">
-              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="p-3">mysite.net</td>
-            <td class="p-3">Pro</td>
-            <td class="p-3">Enabled</td>
-            <td class="p-3">Enabled</td>
-            <td class="p-3 text-green-600">Active</td>
-            <td class="p-3">
-              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="p-3">securedomain.org</td>
-            <td class="p-3">Ultimate</td>
-            <td class="p-3">Enabled</td>
-            <td class="p-3">Enabled</td>
-            <td class="p-3 text-green-600">Active</td>
-            <td class="p-3">
-              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div id="domainTableWrapper">
+        <table class="w-full bg-white rounded shadow overflow-hidden" id="domainTable">
+          <thead class="bg-gray-200 text-left">
+            <tr>
+              <th class="p-3">Domain Name</th>
+              <th class="p-3">Plan</th>
+              <th class="p-3">WHOIS Privacy</th>
+              <th class="p-3">Email Forwarding</th>
+              <th class="p-3">Status</th>
+              <th class="p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dynamic domain rows will be added here -->
+          </tbody>
+        </table>
+        <div id="noDomains" class="domain-placeholder hidden">
+          <img src="novalue.png" alt="No domains" class="w-32 mx-auto" />
+          <p>No domains available</p>
+        </div>
+      </div>
     </section>
 
     <section class="mb-8">
@@ -69,15 +54,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-white p-4 rounded shadow">
           <p class="text-gray-500">Domains Protected</p>
-          <p class="text-2xl font-bold">3</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <p class="text-gray-500">Privacy Savings</p>
-          <p class="text-2xl font-bold">$15/mo</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <p class="text-gray-500">Email Forwards</p>
-          <p class="text-2xl font-bold">5</p>
+          <p class="text-2xl font-bold" id="domainsCount">0</p>
         </div>
       </div>
     </section>
@@ -94,12 +71,41 @@
     </section>
   </div>
 
+  <!-- Edit Domain Modal -->
+  <div id="editDomainModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h3 class="text-xl font-semibold mb-4">Edit Domain</h3>
+      <form id="editDomainForm">
+        <div class="mb-4">
+          <label for="domainName" class="block text-sm font-medium text-gray-700">Domain Name</label>
+          <input type="text" id="domainName" class="mt-2 p-2 border border-gray-300 rounded w-full" placeholder="Domain Name" />
+        </div>
+        <div class="mb-4">
+          <label for="domainStatus" class="block text-sm font-medium text-gray-700">Domain Status</label>
+          <div class="flex items-center">
+            <span class="mr-2 text-gray-700">Active</span>
+            <input type="checkbox" id="domainStatus" class="toggle" />
+          </div>
+        </div>
+        <div class="mb-4">
+          <button type="button" onclick="deleteDomain()" class="bg-red-600 text-white px-4 py-2 rounded w-full mt-4">Delete Domain</button>
+        </div>
+        <div class="flex justify-end">
+          <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded mr-2" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
+    let domainCount = 0; // Tracks the number of domains
+
     function addDomain() {
       const domainName = prompt("Enter new domain name:");
       if (!domainName) return;
 
-      const table = document.getElementById("domainTable");
+      const table = document.getElementById("domainTable").querySelector("tbody");
       const row = document.createElement("tr");
       row.className = "border-t";
       row.innerHTML = `
@@ -113,16 +119,67 @@
         </td>
       `;
       table.appendChild(row);
+
+      domainCount++;
+      updateDomainCount();
+      showNoDomains(false); // Hide "No domains available" message
     }
 
     function editDomain(button) {
       const row = button.closest("tr");
       const domainCell = row.querySelector("td");
       const currentValue = domainCell.textContent.trim();
-      const newDomain = prompt("Edit domain name:", currentValue);
-      if (newDomain) {
-        domainCell.textContent = newDomain;
-      }
+
+      // Show modal and populate values
+      document.getElementById("editDomainModal").classList.remove("hidden");
+      document.getElementById("domainName").value = currentValue;
+
+      // Handle the status toggle
+      const statusCell = row.querySelector("td:nth-child(5)");
+      const status = statusCell.textContent.trim().toLowerCase();
+
+      const toggle = document.getElementById("domainStatus");
+      toggle.checked = status === "active";
+
+      // When the form is submitted, update the domain's status
+      document.getElementById("editDomainForm").onsubmit = function(event) {
+        event.preventDefault();
+        const updatedName = document.getElementById("domainName").value;
+        const updatedStatus = toggle.checked ? "Active" : "Inactive";
+
+        domainCell.textContent = updatedName;
+        statusCell.textContent = updatedStatus;
+        statusCell.classList.toggle("text-green-600", updatedStatus === "Active");
+        statusCell.classList.toggle("text-red-600", updatedStatus === "Inactive");
+
+        closeModal();
+      };
+    }
+
+    function deleteDomain() {
+      const row = document.querySelector("#editDomainModal .p-3");
+      const domainName = document.getElementById("domainName").value;
+      if (!row) return;
+
+      row.closest("tr").remove();
+      domainCount--;
+      updateDomainCount();
+      closeModal();
+
+      // If no domains are left, show the "No domains available" message
+      showNoDomains(domainCount === 0);
+    }
+
+    function updateDomainCount() {
+      document.getElementById("domainsCount").textContent = domainCount;
+    }
+
+    function closeModal() {
+      document.getElementById("editDomainModal").classList.add("hidden");
+    }
+
+    function showNoDomains(show) {
+      document.getElementById("noDomains").classList.toggle("hidden", !show);
     }
   </script>
 </body>
