@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Domain Protect - Shield your domain details from public WHOIS lookups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPOfQsh5_cC0YQ3EItIezFb72RJ56dXt7YQ&s') no-repeat center center/cover;
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(17, 24, 39, 0.7);
+      z-index: 0;
+    }
+
+    header h1,
+    header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .info {
+      max-width: 500px;
+      flex: 1;
+    }
+
+    .info h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .info p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: #475569;
+    }
+
+    .button-group a {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      transition: background 0.3s ease;
+      margin-right: 1rem;
+    }
+
+    .button-group a:last-child {
+      background-color: #64748b;
+    }
+
+    .button-group a:hover {
+      background-color: #1d4ed8;
+    }
+
+    .protect-image {
+      max-width: 500px;
+      flex: 1;
+    }
+
+    .protect-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .pricing {
+      background-color: #ffffff;
+      padding: 3rem 2rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .plans {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .plan {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.5rem;
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .plan h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan p {
+      font-size: 0.95rem;
+      color: #475569;
+      margin-bottom: 1rem;
+    }
+
+    .plan .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+      text-align: left;
+    }
+
+    .features li {
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .features li::before {
+      content: '\2713';
+      color: green;
+      margin-right: 0.5rem;
+    }
+
+    .features li.unavailable {
+      color: #cbd5e1;
+    }
+
+    .features li.unavailable::before {
+      content: '\2014';
+      color: #cbd5e1;
+    }
+
+    .plan a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .plan a:hover {
+      background-color: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background-color: #f1f5f9;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Domain Protect</h1>
+    <p>Shield your domain details from public WHOIS lookups</p>
+  </header>
+
+  <main>
+    <section class="info">
+      <h2>Protect Your Digital Identity</h2>
+      <p>
+        Domain Protect keeps your contact information private by shielding it from WHOIS database lookups. 
+        Prevent unsolicited emails, spam, and identity exposure by ensuring your domain stays private and secure.
+      </p>
+      <div class="button-group">
+        <a href="#">Start Protecting</a>
+        <a href="#">Login</a>
+      </div>
+    </section>
+    <div class="protect-image">
+      <img src="https://media-hosting.imagekit.io/e758112b8a99401d/Add%20a%20subheading%20(5).png?Expires=1839328383&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=eRP3ODYnP4H-IkyYckB68ymVl5nkK7H~~HX26Y6PxMf-L~ipgG1ntqWaBjNiQo-Y~jVMS54YSaSu9Roi~7JikASMBYg-8EDYfXSz~ZBvf~mOMS3~nAEUJgou72Ht6wULOfpUvF5j8n0T-25Vt2ibsxe4y7suNziXPSFk8grN5vk5EWX8pCs5JaBp6YKXP1VuFXXFZPaySVw0iurjGikYXdfOkXEch4NfJZs9PMqYCSsmrCeMEBomjFMloRbPpzSS~LOlGWzfAefJE1vX-Njad5r-zB0bEPbPXoLGmra3z1IG9pjaHcfMilZeaQvB-jGhgXR9i21HRz8dS4~rjdvkMg__" alt="Domain Protect Illustration">
+    </div>
+  </main>
+
+  <section class="pricing">
+    <h2>Choose Your Plan</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Basic</h3>
+        <p>Essential protection for a single domain.</p>
+        <ul class="features">
+          <li>WHOIS Privacy</li>
+          <li>Email Spam Protection</li>
+          <li class="unavailable">Email Forwarding</li>
+          <li class="unavailable">24/7 Support</li>
+          <li class="unavailable">Priority Setup</li>
+        </ul>
+        <div class="price">$5/month</div>
+        <a href="#">Get Started</a>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <p>Advanced protection with email forwarding.</p>
+        <ul class="features">
+          <li>WHOIS Privacy</li>
+          <li>Email Spam Protection</li>
+          <li>Email Forwarding</li>
+          <li>24/7 Support</li>
+          <li class="unavailable">Priority Setup</li>
+        </ul>
+        <div class="price">$12/month</div>
+        <a href="#">Get Started</a>
+      </div>
+      <div class="plan">
+        <h3>Ultimate</h3>
+        <p>Complete privacy with priority support.</p>
+        <ul class="features">
+          <li>WHOIS Privacy</li>
+          <li>Email Spam Protection</li>
+          <li>Email Forwarding</li>
+          <li>24/7 Support</li>
+          <li>Priority Setup</li>
+        </ul>
+        <div class="price">$20/month</div>
+        <a href="#">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Not copyright protected. This website has been made with ChatGPT.
+  </footer>
+
+</body>
+</html>
