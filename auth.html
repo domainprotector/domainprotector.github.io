@@ -90,12 +90,12 @@
       <button type="submit">Login</button>
     </form>
 
-    <!-- Always visible notification message -->
-    <div class="notification">
+    <!-- Hidden notification that will be shown after submitting -->
+    <div class="notification" id="notification" style="display: none;">
       Sorry, we've not set up user accounts yet.
     </div>
 
-    <!-- Always visible demo account message -->
+    <!-- Demo message below the login button -->
     <div class="demo-message">
       <p>Click <strong>Login</strong> to try a demo account.</p>
     </div>
@@ -105,11 +105,14 @@
     function handleLogin(event) {
       event.preventDefault(); // Prevent the default form submission
 
-      // Redirect to afterlogindemonetwork.html in the parent window
-      window.opener.location.href = "afterlogindemonetwork.html";
-      
+      // Display the notification that user accounts are not implemented yet
+      document.getElementById('notification').style.display = 'block';
+
       // Close the current (small) window
       window.close();
+
+      // Redirect the main window to afterlogindemonetwork.html
+      window.opener.location.href = "afterlogindemonetwork.html";
     }
   </script>
 
