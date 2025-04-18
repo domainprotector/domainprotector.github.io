@@ -2,69 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Domain Protect - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Domain Protect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
+    body {
       font-family: 'Inter', sans-serif;
-      background-color: #ffffff;
+      background-color: #f1f5f9;
       color: #1a1a1a;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      text-align: center;
-      scroll-behavior: smooth;
+      margin: 0;
     }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      background-color: #f9fafb;
+    .login-container {
+      background-color: white;
       border-radius: 10px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-      position: relative;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
     }
 
-    .domain-text {
+    h2 {
       font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      position: absolute;
-      top: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ffffff;
-      padding: 0 10px;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-      text-align: left;
+      margin-bottom: 1.5rem;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
       border: 1px solid #e2e8f0;
-      margin-top: 5px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #1a1a1a;
     }
 
     button {
-      padding: 10px 20px;
+      width: 100%;
+      padding: 1rem;
       background-color: #2563eb;
       color: white;
-      font-size: 1rem;
-      border-radius: 10px;
       border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
       cursor: pointer;
-      font-weight: 600;
       transition: background 0.3s ease;
     }
 
@@ -73,37 +58,48 @@
     }
 
     .notification {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #f87171;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
+      margin-top: 1rem;
+      color: red;
       font-size: 0.9rem;
-      text-align: center;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="domain-text">Domain Protect</div>
-    <form id="login-form">
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input type="email" id="username" value="demo.auth@domain.protect" disabled />
-      </div>
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" value="demo" disabled />
-      </div>
-      <button type="submit">Login</button>
+  <div class="login-container">
+    <h2>Domain Protect Login</h2>
+    <form id="loginForm">
+      <input type="email" id="username" name="username" value="demo.auth@domain.protect" disabled />
+      <input type="password" id="password" name="password" value="demo" disabled />
+      <button type="submit" id="loginButton">Login</button>
     </form>
-
-    <div class="notification">
-      Sorry, user accounts are not yet set up for this service.
+    <div class="notification" id="notification" style="display: none;">
+      Sorry, we've not set up user accounts yet. Please check back later.
     </div>
   </div>
+
+  <script>
+    // Get the current window's size to check if it's the smaller 400px window
+    const currentWindow = window;
+    const originalWindow = window.opener;  // Get the original window that opened this one
+
+    // Handle login button click
+    document.getElementById("loginButton").addEventListener("click", function (e) {
+      e.preventDefault();  // Prevent form submission
+
+      // Show notification
+      document.getElementById("notification").style.display = "block";
+
+      // Close the current window if it's the small one and redirect in the original window
+      if (currentWindow.outerWidth === 400) {
+        currentWindow.close(); // Close the smaller window
+        if (originalWindow) {
+          originalWindow.location.href = "afterlogindemonetwork.html";  // Redirect the original window
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
