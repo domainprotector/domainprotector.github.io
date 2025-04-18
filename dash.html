@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Domain Protect Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-7xl mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">🛡️ Domain Protect Dashboard</h1>
+      <p class="text-gray-600">Welcome, <span class="font-semibold">demo</span>!</p>
+    </header>
 
+    <section class="mb-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold text-gray-700">🔍 Domain Overview</h2>
+        <button onclick="addDomain()" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">+ Add Domain</button>
+      </div>
+      <table class="w-full bg-white rounded shadow overflow-hidden">
+        <thead class="bg-gray-200 text-left">
+          <tr>
+            <th class="p-3">Domain Name</th>
+            <th class="p-3">Plan</th>
+            <th class="p-3">WHOIS Privacy</th>
+            <th class="p-3">Email Forwarding</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="domainTable">
+          <tr class="border-t">
+            <td class="p-3">example.com</td>
+            <td class="p-3">Basic</td>
+            <td class="p-3">Enabled</td>
+            <td class="p-3">Disabled</td>
+            <td class="p-3 text-green-600">Active</td>
+            <td class="p-3">
+              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">mysite.net</td>
+            <td class="p-3">Pro</td>
+            <td class="p-3">Enabled</td>
+            <td class="p-3">Enabled</td>
+            <td class="p-3 text-green-600">Active</td>
+            <td class="p-3">
+              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">securedomain.org</td>
+            <td class="p-3">Ultimate</td>
+            <td class="p-3">Enabled</td>
+            <td class="p-3">Enabled</td>
+            <td class="p-3 text-green-600">Active</td>
+            <td class="p-3">
+              <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">📊 Account Analytics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded shadow">
+          <p class="text-gray-500">Domains Protected</p>
+          <p class="text-2xl font-bold">3</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <p class="text-gray-500">Privacy Savings</p>
+          <p class="text-2xl font-bold">$15/mo</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <p class="text-gray-500">Email Forwards</p>
+          <p class="text-2xl font-bold">5</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">⚙️ Account Settings</h2>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-gray-700">Account: <span class="font-medium">demo@domain.protect</span></p>
+        <p class="text-gray-700">Plan: <span class="font-medium">Ultimate</span></p>
+        <button class="mt-4 bg-gray-400 text-white px-4 py-2 rounded shadow cursor-not-allowed" disabled>Cancel Subscription</button>
+        <p class="mt-2 text-gray-500">You can't cancel demo@domain.protect's email because you aren't an admin on the account.</p>
+        <a href="index.html" class="mt-4 bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700">Logout</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function addDomain() {
+      const domainName = prompt("Enter new domain name:");
+      if (!domainName) return;
+
+      const table = document.getElementById("domainTable");
+      const row = document.createElement("tr");
+      row.className = "border-t";
+      row.innerHTML = `
+        <td class="p-3">${domainName}</td>
+        <td class="p-3">Basic</td>
+        <td class="p-3">Enabled</td>
+        <td class="p-3">Disabled</td>
+        <td class="p-3 text-green-600">Active</td>
+        <td class="p-3">
+          <button onclick="editDomain(this)" class="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
+        </td>
+      `;
+      table.appendChild(row);
+    }
+
+    function editDomain(button) {
+      const row = button.closest("tr");
+      const domainCell = row.querySelector("td");
+      const currentValue = domainCell.textContent.trim();
+      const newDomain = prompt("Edit domain name:", currentValue);
+      if (newDomain) {
+        domainCell.textContent = newDomain;
+      }
+    }
+  </script>
+</body>
+</html>
