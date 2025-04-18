@@ -63,42 +63,54 @@
       font-size: 0.9rem;
       font-weight: 600;
     }
+
+    .demo-message {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #475569;
+    }
+
+    .demo-message a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .demo-message a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
   <div class="login-container">
     <h2>Domain Protect Login</h2>
-    <form id="loginForm">
+    <form id="loginForm" onsubmit="return handleLogin(event)">
       <input type="email" id="username" name="username" value="demo.auth@domain.protect" disabled />
       <input type="password" id="password" name="password" value="demo" disabled />
-      <button type="submit" id="loginButton">Login</button>
+      <button type="submit">Login</button>
     </form>
-    <div class="notification" id="notification" style="display: none;">
-      Sorry, we've not set up user accounts yet. Please check back later.
+
+    <!-- Always visible notification message -->
+    <div class="notification">
+      Sorry, we've not set up user accounts yet.
+    </div>
+
+    <!-- Always visible demo account message -->
+    <div class="demo-message">
+      <p>Click <strong>Login</strong> to try a demo account.</p>
     </div>
   </div>
 
   <script>
-    // Get the current window's size to check if it's the smaller 400px window
-    const currentWindow = window;
-    const originalWindow = window.opener;  // Get the original window that opened this one
+    function handleLogin(event) {
+      event.preventDefault(); // Prevent the default form submission
 
-    // Handle login button click
-    document.getElementById("loginButton").addEventListener("click", function (e) {
-      e.preventDefault();  // Prevent form submission
-
-      // Show notification
-      document.getElementById("notification").style.display = "block";
-
-      // Close the current window if it's the small one and redirect in the original window
-      if (currentWindow.outerWidth === 400) {
-        currentWindow.close(); // Close the smaller window
-        if (originalWindow) {
-          originalWindow.location.href = "afterlogindemonetwork.html";  // Redirect the original window
-        }
-      }
-    });
+      // Redirect to afterlogindemonetwork.html in the parent window
+      window.opener.location.href = "afterlogindemonetwork.html";
+      
+      // Close the current (small) window
+      window.close();
+    }
   </script>
 
 </body>
