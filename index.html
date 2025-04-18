@@ -81,7 +81,7 @@
     .info a {
       display: inline-block;
       padding: 0.8rem 1.5rem;
-      background-color: #2563eb;
+      background-color: #2563eb; /* Blue */
       color: white;
       border-radius: 10px;
       text-decoration: none;
@@ -92,29 +92,23 @@
     }
 
     .info a:hover {
-      background-color: #1d4ed8;
+      background-color: #1d4ed8; /* Darker blue */
     }
 
-    .button-group {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .button-group a {
+    .login-btn {
       display: inline-block;
       padding: 0.8rem 1.5rem;
-      background-color: #2563eb;
+      background-color: #4a90e2; /* A more visible blue (lighter than the other button) */
       color: white;
       border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
       transition: background 0.3s ease;
     }
 
-    .button-group a:hover {
-      background-color: #1d4ed8;
+    .login-btn:hover {
+      background-color: #357ABD; /* Slightly darker blue for hover effect */
     }
 
     .protect-image {
@@ -130,7 +124,7 @@
     }
 
     .pricing {
-      background-color: white;
+      background-color: #f9fafb;
       padding: 3rem 2rem;
       text-align: center;
       max-width: 1200px;
@@ -243,10 +237,8 @@
         Domain Protect keeps your contact information private by shielding it from WHOIS database lookups. 
         Prevent unsolicited emails, spam, and identity exposure by ensuring your domain stays private and secure.
       </p>
-      <div class="button-group">
-        <a href="#">Start Protecting</a>
-        <a href="#" onclick="window.open('https://domainprotector.github.io/auth.html', 'Login', 'width=400,height=600'); return false;">Login</a>
-      </div>
+      <a href="#">Start Protecting</a>
+      <a href="#" class="login-btn">Login</a>
     </section>
     <div class="protect-image">
       <img src="protect.png" alt="Domain Protect Illustration">
@@ -299,7 +291,7 @@
   </section>
 
   <footer>
-    Not copyright protected. This website has been made with ChatGPT.
+    <p>Not copyright protected. This website has been made with ChatGPT.</p>
   </footer>
 
 </body>
